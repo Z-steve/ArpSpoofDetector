@@ -46,6 +46,17 @@ def stop_monitoring():
 def get_monitoring_status():
     return jsonify({'monitoring': detector.running})
 
+@app.route('/api/config', methods=['GET'])
+def get_config():
+    return jsonify({
+        'interface': detector.iface,
+        'subnet': detector.cache.subnet,
+        'gateway_ip': detector.cache.gateway_ip,
+        'detector_ip': detector.cache.detector_ip,
+        'detector_mac': detector.cache.detector_mac,
+        'capture_available': detector.cache.capture_available
+    })
+
 
 if __name__ == "__main__":
     # Ensure the static folder exists and create it if it does not exists
